@@ -1,4 +1,8 @@
 ## RGBD-Inertial Trajectory Estimation and Mapping for Small Ground Rescue Robot
+
+修复了点云坐标系不一致的bug，需要较好的标定才能更好运行。
+
+---
 Based one open source SLAM framework [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono).
 
 The approach contains
