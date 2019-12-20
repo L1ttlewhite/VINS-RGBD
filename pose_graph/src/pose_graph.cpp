@@ -162,7 +162,7 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
     {
         cv::Point3f pcl = cur_kf->point_3d_depth[i];
         Vector3d pts_i(pcl.x , pcl.y, pcl.z);
-        Vector3d w_pts_i = R * (qi_d * pts_i + ti_d) + P;
+        Vector3d w_pts_i = R * (qic * pts_i + tic) + P;
         pcl::PointXYZ searchPoint;
         searchPoint.x = w_pts_i(0);
         searchPoint.y = w_pts_i(1);
