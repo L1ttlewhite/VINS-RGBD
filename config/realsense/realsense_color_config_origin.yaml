@@ -25,18 +25,18 @@ image_height: 480
   #TODO modify distortion
 
 distortion_parameters:
-   k1: 0.125260
-   k2: -0.233695
-   p1: -0.001145
-   p2: -0.002372
+   k1: 1.25323e-01
+   k2: -2.51452e-01
+   p1: 7.12e-04
+   p2: 6.217e-03
 projection_parameters:
-   fx: 6.160029296875e+02
-   fy: 6.162125244140625e+02
-   cx: 3.1788201904296875e+02
-   cy: 2.3771044921875e+02
+   fx: 6.165911254882812e+02
+   fy: 6.166796264648438e+02
+   cx: 3.242193603515625e+02
+   cy: 2.3942701721191406e+02
 
 # Extrinsic parameter between IMU and Camera.
-estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
                         # 2  Don't know anything about extrinsic parameters. You don't need to give R,T. We will try to calibrate it. Do some rotation movement at beginning.
 #If you choose 0 or 1, you should write down the following matrix.
@@ -47,16 +47,7 @@ extrinsicRotation: !!opencv-matrix
    dt: d
    data: [  0.0008748, -0.0047406,  0.9999884,
            -0.9999681, -0.0079460,  0.0008371,
-            0.0079419, -0.9999572, -0.0047474 ] 
-
-# extrinsicRotation: !!opencv-matrix
-#    rows: 3
-#    cols: 3
-#    dt: d
-#    data: [  0.01746774, -0.00050552,  0.9998473,
-#            -0.9995868, 0.02282223,  0.01747473,
-#             -0.02282758, -0.99973941, -0.00010666 ]  
-
+            0.0079419, -0.9999572, -0.0047474 ]    
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
@@ -65,9 +56,9 @@ extrinsicTranslation: !!opencv-matrix
    data: [1.30441e-05, 0.0149225, 0.000316835]
 
 #feature traker paprameters
-max_cnt: 120           # max feature number in feature tracking
-min_dist: 10            # min distance between two features
-freq: 10               # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image
+max_cnt: 200           # max feature number in feature tracking
+min_dist: 15            # min distance between two features
+freq: 10                # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image
 F_threshold: 1.0        # ransac threshold (pixel)
 show_track: 1           # publish tracking image as topic
 equalize: 0             # if image is too dark or light, trun on equalize to find enough features
@@ -80,10 +71,10 @@ keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
 
 #imu parameters       The more accurate parameters you provide, the better performance
 #for handheld, wheeld
-acc_n: 0.0392          # accelerometer measurement noise standard deviation. #0.1
-gyr_n: 0.00322         # gyroscope measurement noise standard deviation.     #0.01
-acc_w: 0.000865         # accelerometer bias random work noise standard deviation.  #0.0002
-gyr_w: 2.57e-5       # gyroscope bias random work noise standard deviation.     #2.0e-5
+acc_n: 0.1          # accelerometer measurement noise standard deviation. #0.2
+gyr_n: 0.01         # gyroscope measurement noise standard deviation.     #0.05
+acc_w: 0.0002         # accelerometer bias random work noise standard deviation.  #0.02
+gyr_w: 2.0e-5       # gyroscope bias random work noise standard deviation.     #4.0e-5
 
 #for tracked applications
 #acc_n: 0.5          # accelerometer measurement noise standard deviation. #0.2
@@ -96,7 +87,6 @@ g_norm: 9.805       # gravity magnitude
 
 #loop closure parameters
 loop_closure: 1                    # start loop closure
-enable_loop_closure: 0             # loop closure flag 0: disable loop closure (recommend for poor cpu)
 fast_relocalization: 1             # useful in real-time and large project
 load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
 pose_graph_save_path: "/home/shanzy/output/pose_graph/" # save and load path
